@@ -51,6 +51,8 @@ export class App extends Component {
     genderValidation = gender => ((gender !== 'male' || gender !== 'female') && this.setState({ genderIsInvalid: true }))
     handleForm = event => {
         event.preventDefault()
+        const {dateIsInvalid,genderIsInvalid}=this.state;
+        console.log('dateIsInvalid', dateIsInvalid,'genderIsInvalid',genderIsInvalid);
         const form = new FormData(event.target)
         const date = form.get('date')
         const gender = form.get('gender')
@@ -59,12 +61,16 @@ export class App extends Component {
         if (!gender.match(/male|female/gi)) {
             this.setState({ genderIsInvalid: true })
 
+
         }
-        if (date === null|| date==='') {
+        if (date === null|| date==='' ||date===undefined) {
             this.setState({ dateIsInvalid: true })
         }
 
-        if (this.state.genderIsInvalid ===true || this.state.dateIsInvalid ===true) {
+        if (dateIsInvalid !==true || genderIsInvalid !==true || date==undefined|| gender==undefined) {
+            console.log('function called');
+        console.log('dateIsInvalid', dateIsInvalid,'genderIsInvalid',genderIsInvalid);
+
             const newDate = new Date(date)
             const dayBorn = newDate.getDay()
             const daysOfTheWeek = Object.keys(this.names)
@@ -76,6 +82,9 @@ export class App extends Component {
             alert('Ooop! We ran into a problem.')
 
         }
+        console.log('dateIsInvalid', dateIsInvalid,'genderIsInvalid',genderIsInvalid);
+
+
 
     }
     handleDateChange = date => this.setState({ date })
