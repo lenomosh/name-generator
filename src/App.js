@@ -42,14 +42,14 @@ export class App extends Component {
         },
     }
 
-    dateValidation = (date) => {
+    dateValidation = date => {
         const dateFormat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
         if (date.match(dateFormat)) {
             this.setState({ dateIsInvalid: true })
         }
 
     }
-    genderValidation = (gender) => ((gender !== 'm' || gender !== 'f') && this.setState({ genderIsInvalid: true }))
+    genderValidation = gender=> ((gender !== 'm' || gender !== 'f') && this.setState({ genderIsInvalid: true }))
     splitDate = date =>{
         const dateArray =date.split('-').join('/').split('/')
         return {
@@ -58,7 +58,7 @@ export class App extends Component {
             day:dateArray[2],
         }
     }
-    handleForm = (event) => {
+    handleForm = event => {
         event.preventDefault()
         const form = new FormData(event.target)
         const date = form.get('date')
@@ -72,8 +72,6 @@ export class App extends Component {
         console.log(dayBorn)
         const akanName = this.names[daysOfTheWeek[dayBorn]][gender]
         console.log(akanName)
-
-
     }
     handleDateChange = date => this.setState({ date })
     handleGenderChange = gender => this.setState({ gender })
