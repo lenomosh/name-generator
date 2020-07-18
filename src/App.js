@@ -6,7 +6,8 @@ export class App extends Component {
         this.state = {
             dateIsInvalid: false,
             genderIsInvalid: false,
-            akanName: null
+            akanName: null,
+            proceed:false
 
         }
     }
@@ -43,12 +44,12 @@ export class App extends Component {
 
     dateValidation = date => {
         const dateFormat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-        if (!date.match(dateFormat)) {
+        if (!date.match(dateFormat)|| date === null|| date==='' ||date===undefined) {
             this.setState({ dateIsInvalid: true })
         }
 
     }
-    genderValidation = gender => ((gender !== 'male' || gender !== 'female') && this.setState({ genderIsInvalid: true }))
+    genderValidation = gender => ((!gender.match(/male|female/gi) ||gender===null || gender===undefined )&& this.setState({ genderIsInvalid: true }))
     handleForm = event => {
         event.preventDefault()
         const {dateIsInvalid,genderIsInvalid}=this.state;
@@ -57,19 +58,14 @@ export class App extends Component {
         const date = form.get('date')
         const gender = form.get('gender')
         this.dateValidation(date)
-
-        if (!gender.match(/male|female/gi)) {
-            this.setState({ genderIsInvalid: true })
-
+        this.genderValidation(gender)
+        if (dateIsInvalid ===false && date!==undefined && date.length >9&&gender.length>=4 && genderIsInvalid ===false) {
+            this.setState({proceed:true})
 
         }
-        if (date === null|| date==='' ||date===undefined) {
-            this.setState({ dateIsInvalid: true })
-        }
-
-        if (dateIsInvalid !==true || genderIsInvalid !==true || date==undefined|| gender==undefined) {
+        if (this.state.proceed) {
             console.log('function called');
-        console.log('dateIsInvalid', dateIsInvalid,'genderIsInvalid',genderIsInvalid);
+            console.log('dateIsInvalid', dateIsInvalid,'genderIsInvalid',genderIsInvalid);
 
             const newDate = new Date(date)
             const dayBorn = newDate.getDay()
@@ -83,9 +79,6 @@ export class App extends Component {
 
         }
         console.log('dateIsInvalid', dateIsInvalid,'genderIsInvalid',genderIsInvalid);
-
-
-
     }
     handleDateChange = date => this.setState({ date })
     handleGenderChange = gender => this.setState({ gender })
