@@ -6,8 +6,7 @@ export class App extends Component {
         this.state = {
             dateIsInvalid: false,
             genderIsInvalid: false,
-            date: '',
-            gender: '',
+            akanName: null
 
         }
     }
@@ -49,43 +48,34 @@ export class App extends Component {
         }
 
     }
-    genderValidation = gender => ((gender !== 'm' || gender !== 'f') && this.setState({ genderIsInvalid: true }))
-    splitDate = date => {
-        const dateArray = date.split('-').join('/').split('/')
-        return {
-            year: dateArray[0],
-            month: dateArray[1],
-            day: dateArray[2],
-        }
-    }
+    genderValidation = gender => ((gender !== 'male' || gender !== 'female') && this.setState({ genderIsInvalid: true }))
     handleForm = event => {
         event.preventDefault()
         const form = new FormData(event.target)
         const date = form.get('date')
-        this.dateValidation(date)
         const gender = form.get('gender')
-        if (gender === ''||gender !=='male'|| gender !=='female' || this.state.genderIsInvalid)  {
-            this.setState({genderIsInvalid:true})
+        this.dateValidation(date)
 
-        } else if(date == null) {
-            this.setState({dateIsInvalid:true})
+        if (!gender.match(/male|female/gi)) {
+            this.setState({ genderIsInvalid: true })
 
         }
-        if (!this.state.genderIsInvalid || !this.state.dateIsInvalid) {
+        if (date === null|| date==='') {
+            this.setState({ dateIsInvalid: true })
+        }
 
-        const splittedDate = this.splitDate(date)
-        const newDate = new Date(date)
-        const dayBorn = newDate.getDay()
-        const daysOfTheWeek = Object.keys(this.names)
-        console.log(daysOfTheWeek);
-        console.log(dayBorn)
-        const akanName = this.names[daysOfTheWeek[dayBorn]][gender]
-        console.log(akanName)
+        if (this.state.genderIsInvalid ===true || this.state.dateIsInvalid ===true) {
+            const newDate = new Date(date)
+            const dayBorn = newDate.getDay()
+            const daysOfTheWeek = Object.keys(this.names)
+            console.log(daysOfTheWeek);
+            console.log(dayBorn)
+            const akanName = this.names[daysOfTheWeek[dayBorn]][gender]
+            this.setState({akanName})
         } else {
             alert('Ooop! We ran into a problem.')
 
         }
-        /** */
 
     }
     handleDateChange = date => this.setState({ date })
@@ -94,13 +84,16 @@ export class App extends Component {
         return (
             <div className="main-wrapper">
                 <div className="form-wrapper">
+                    {this.state.akanName?
+                    <div>{this.state.akanName}</div>
+                    :
                     <form onSubmit={event => this.handleForm(event)}>
                         <div className="input-wrapper">
                             <input className="input-item" name="date" onChange={(event) => this.handleDateChange(event.target.value)} type='date' />
-                            {this.state.dateIsInvalid && <p className="input-error">The date is invalid</p>}
+                            {this.state.dateIsInvalid && <p className="input-error">The date is either blank or invalid</p>}
                         </div>
                         <div className="input-wrapper">
-                            <select onChange={event=>this.handleGenderChange(event.target.value)} className="input-item" name="gender">
+                            <select onChange={event => this.handleGenderChange(event.target.value)} className="input-item" name="gender">
                                 <option value='male'>Male</option>
                                 <option value='female'>Female</option>
                             </select>
@@ -110,6 +103,8 @@ export class App extends Component {
                             <input className="submit" type='submit' value="Get Akan Name" />
                         </div>
                     </form>
+
+                    }
                 </div>
             </div>
         )
