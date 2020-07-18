@@ -65,14 +65,13 @@ export class App extends Component {
         const gender = form.get('gender')
         /** */
         const splittedDate =this.splitDate(date)
-        const centuryDigits = parseInt(splittedDate.year.toString().slice(0,2));
-        // console.log(centuryDigits);
-        const yearDigits =parseInt(splittedDate.year.toString().slice(2));
-        console.log(yearDigits);
-        // const dayBorn = this.getDayOfTheWeek(centuryDigits,yearDigits,splittedDate.month,splittedDate.day)
         const newDate = new Date(date)
         const dayBorn = newDate.getDay()
+        const daysOfTheWeek = Object.keys(this.names)
+        console.log(daysOfTheWeek);
         console.log(dayBorn)
+        const akanName = this.names[daysOfTheWeek[dayBorn]][gender]
+        console.log(akanName)
 
 
     }
@@ -87,10 +86,10 @@ export class App extends Component {
                             <input name="date" onChange={(event) => this.dateValidation(event.target.value)} type='date' />
                             {this.state.dateIsInvalid && <p>The date is invalid</p>}
                             <select name="gender">
-                                <option value='m'>Male</option>
-                                <option value='f'>Female</option>
+                                <option value='male'>Male</option>
+                                <option value='female'>Female</option>
                             </select>
-                            {this.state.genderIsInvalid && <p>The gender is invalid</p>}
+                            {this.state.genderIsInvalid && <p>The gender is either blank or invalid</p>}
                             <input type='submit' value="Submit" />
                         </div>
                     </form>
