@@ -52,8 +52,8 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-# Behaviour Driven Data
-Behavious | Sample Input | Expected Output
+# Behaviour Driven Development
+Behaviour | Sample Input | Expected Output
 ------------ | ------------- | -------------
 A year that is not 4 digits| 999| false
 A day that is greater than 31 | 31| false
