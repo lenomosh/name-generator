@@ -1,12 +1,12 @@
 # Akan Name Generator
 Made by [Lennox Omondi](https://linkedin.com/in/lenomosh)
 
-## Project Deescription
+## Project Description
 
 This is a web application that takes a user's birthday and calculates the day of the week they were born and then depending on their gender outputs their Akan Name. 
 Akan names are derived from Ghanian culture. Frequently in Ghana, children are given their first name as a 'day name' which corresponds to the day in the week they were born.
 
-# Setup Instrutionc
+# Setup Instrutions
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -62,8 +62,8 @@ any date with a decimale place | 1.2/11/2000 | false
 a year that has four digits | 2000 | true
 a date not in the format YYYY-MM-DD| 31-05-2000 | false
 
-## Technologies used
+# Technologies used
 This program was developed using ReactJS, JSX and SASS
 
-## Contact Information
+# Contact Information
 Found a bug or wish to reach out? Email me at omondilenox@outlook.com
