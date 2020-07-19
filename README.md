@@ -66,4 +66,4 @@ a date not in the format YYYY-MM-DD| 31-05-2000 | false
 This program was developed using ReactJS, JSX and SASS
 
 ## Contact Information
-Found a bug or wish to reach out? Email me at [omondilenox@outlook.com]
+Found a bug or wish to reach out? Email me at omondilenox@outlook.com
