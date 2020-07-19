@@ -110,7 +110,7 @@ const App = () => {
                             {dateIsInvalid && <p className="input-error">The date is either blank or invalid</p>}
                         </div>
                         <div className="input-wrapper">
-                            <label for="gender">Date of Birth</label>
+                            <label for="gender">Gender</label>
                             <select id='gender' onChange={event => handleGenderChange(event.target.value)} className="input-item" name="gender">
                                 <option value='male'>Male</option>
                                 <option value='female'>Female</option>
