@@ -9,7 +9,6 @@ export class App extends Component {
             akanName: null,
             proceed: false,
             currentStep: 1
-
         }
     }
     names = {
@@ -60,44 +59,32 @@ export class App extends Component {
     handleForm = event => {
         event.preventDefault()
         const { dateIsInvalid, genderIsInvalid } = this.state;
-        // console.log('dateIsInvalid', dateIsInvalid, 'genderIsInvalid', genderIsInvalid);
         const form = new FormData(event.target)
         const date = form.get('date')
         const gender = form.get('gender')
         this.dateValidation(date)
         this.genderValidation(gender)
         if (dateIsInvalid === false && date !== undefined && date.length > 9 && gender.length >= 4 && genderIsInvalid === false) {
-            // this.setState({ proceed: true })
-
-
-            // console.log('function called');
-            // console.log('dateIsInvalid', dateIsInvalid, 'genderIsInvalid', genderIsInvalid);
-
             const newDate = new Date(date)
             const dayBorn = newDate.getDay()
             const daysOfTheWeek = Object.keys(this.names)
             console.log(daysOfTheWeek);
             console.log(dayBorn)
             const akanName = this.names[daysOfTheWeek[dayBorn]][gender]
-            this.setState({ akanName})
+            this.setState({ akanName })
             this.handleStepIncrement('next')
         }
-
-        // console.log('dateIsInvalid', dateIsInvalid, 'genderIsInvalid', genderIsInvalid);
     }
     handleDateChange = date => {
-        // console.log('date',date);
         this.dateValidation(date);
-        // console.log('isValid', isValid);
-        // console.log('isInValid', this.state.isInValid);
     }
     handleGenderChange = gender => {
         this.genderValidation(gender)
     }
-    handleStepIncrement = (type='next') =>{
-        type==='next'?this.setState(prevState=>({currentStep:prevState.currentStep++}))
-        :
-        this.setState(prevState=>({currentStep:prevState.currentStep--}))
+    handleStepIncrement = (type = 'next') => {
+        type === 'next' ? this.setState(prevState => ({ currentStep: prevState.currentStep++ }))
+            :
+            this.setState(prevState => ({ currentStep: prevState.currentStep-- }))
     }
     render() {
         const { dateIsInvalid, genderIsInvalid, akanName, currentStep } = this.state;
@@ -112,46 +99,46 @@ export class App extends Component {
 
                             This is a web application that takes a user's birthday and calculates the day of the week they were born and then depending on their gender outputs their Akan Name. Akan names are derived from Ghanian culture. Frequently in Ghana, children are given their first name as a 'day name' which corresponds to the day in the week they were born.
                         </p>
-                        <button onClick={()=>this.handleStepIncrement('next')} className="button">Proceed to next step</button>
+                        <button onClick={() => this.handleStepIncrement('next')} className="button">Proceed to next step</button>
 
 
                     </div>}
-                    {currentStep ===2 &&
+                {currentStep === 2 &&
 
-                <div className="form-wrapper">
-                    <form onSubmit={event => this.handleForm(event)}>
-                        <div className="input-wrapper">
-                            <label for="date">Date of Birth</label>
-                            <input id="date" className="input-item" name="date" onChange={event => this.handleDateChange(event.target.value)} type='date' />
-                            {dateIsInvalid && <p className="input-error">The date is either blank or invalid</p>}
-                        </div>
-                        <div className="input-wrapper">
-                        <label for="gender">Date of Birth</label>
-                            <select id='gender' onChange={event => this.handleGenderChange(event.target.value)} className="input-item" name="gender">
-                                <option value='male'>Male</option>
-                                <option value='female'>Female</option>
-                            </select>
-                            {genderIsInvalid && <p className="input-error">The gender is either blank or invalid</p>}
-                        </div>
-                        <div className="input-wrapper">
-                            {(dateIsInvalid ===false && genderIsInvalid === false) && <input className="submit" type='submit' value="Get Akan Name" />}
+                    <div className="form-wrapper">
+                        <form onSubmit={event => this.handleForm(event)}>
+                            <div className="input-wrapper">
+                                <label for="date">Date of Birth</label>
+                                <input id="date" className="input-item" name="date" onChange={event => this.handleDateChange(event.target.value)} type='date' />
+                                {dateIsInvalid && <p className="input-error">The date is either blank or invalid</p>}
+                            </div>
+                            <div className="input-wrapper">
+                                <label for="gender">Date of Birth</label>
+                                <select id='gender' onChange={event => this.handleGenderChange(event.target.value)} className="input-item" name="gender">
+                                    <option value='male'>Male</option>
+                                    <option value='female'>Female</option>
+                                </select>
+                                {genderIsInvalid && <p className="input-error">The gender is either blank or invalid</p>}
+                            </div>
+                            <div className="input-wrapper">
+                                {(dateIsInvalid === false && genderIsInvalid === false) && <input className="submit" type='submit' value="Get Akan Name" />}
 
-                        </div>
-                        <button onClick={()=>this.handleStepIncrement('prev')} className="button">Previous Step</button>
+                            </div>
+                            <button onClick={() => this.handleStepIncrement('prev')} className="button">Previous Step</button>
 
-                    </form>
+                        </form>
 
-            </div>
+                    </div>
 
-                    }
-                    {currentStep ===3 &&
+                }
+                {currentStep === 3 &&
 
                     <div className="akanName-wrapper">
                         <p>Congratulations, your Akan Name is {akanName}</p>
-                        <button onClick={()=>this.handleStepIncrement('prev')} className="button">Previous Step</button>
+                        <button onClick={() => this.handleStepIncrement('prev')} className="button">Previous Step</button>
                     </div>
 
-                    }
+                }
             </div>
         )
     }
