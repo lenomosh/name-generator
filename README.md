@@ -52,10 +52,18 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Deployment
+# Behaviour Driven Data
+Behavious | Sample Input | Expected Output
+------------ | ------------- | -------------
+A year that is not 4 digits| 999| false
+A day that is greater than 31 | 31| false
+a day that is less than 1| 0 | false
+any date with a decimale place | 1.2/11/2000 | false
+a year that has four digits | 2000 | true
+a date not in the format YYYY-MM-DD| 31-05-2000 | false
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+## Technologies used
+This program was developed using ReactJS, JSX and SASS
 
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Contact Information
+Found a bug or wish to reach out? Email me at [omondilenox@outlook.com]
